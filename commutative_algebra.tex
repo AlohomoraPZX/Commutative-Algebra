@@ -1,0 +1,63 @@
+\documentclass[12pt]{book}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath, amsfonts, amssymb , mathrsfs,amsthm, amssymb}
+\usepackage{hyperref}
+\usepackage{indentfirst, array, tikz, enumitem}
+\setlength{\parindent}{2em}
+\linespread{1.25}
+\usepackage[margin=3.18cm,a4paper]{geometry}
+\newtheorem{theorem}{Theorem}[section] 
+\newtheorem{lemma}[theorem]{Lemma} 
+\newtheorem{proposition}[theorem]{Proposition} 
+\newtheorem{corollary}[theorem]{Corollary} 
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{claim}[theorem]{Claim}
+\DeclareMathOperator{\Irr}{Irr}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\mathQ}{\mathbb{Q}}
+\DeclareMathOperator{\mathR}{\mathbb{R}}
+\DeclareMathOperator{\mathC}{\mathbb{C}}
+\DeclareMathOperator{\mathZ}{\mathbb{Z}}
+\DeclareMathOperator{\mathN}{\mathbb{N}}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\Func}{Func}
+\DeclareMathOperator{\Nat}{Nat}
+\usepackage{extarrows, quiver}
+
+\usetikzlibrary{arrows.meta,positioning, calc}
+\usepackage{tikz-cd}
+
+
+\title{Commutative Algebra}
+\author{Fall Term}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\frontmatter
+
+\cleardoublepage
+\thispagestyle{empty}
+\vspace*{0.3\textheight}
+\begin{center}
+\huge\textit{To all who find beauty in logic.}
+\end{center}
+\cleardoublepage
+\include{chapters/syllabus_new}
+\tableofcontents
+
+\mainmatter
+\include{chapters/rudiments}
+\include{chapters/chapter1}
+
+
+\end{document}
