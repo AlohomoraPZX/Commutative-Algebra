@@ -1,9 +1,0 @@
-\contentsline {chapter}{\numberline {1}Rudiments}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Ring Theory}{1}{section.1.1}%
-\contentsline {subsection}{\numberline {1.1.1}Radical of Ideals}{1}{subsection.1.1.1}%
-\contentsline {subsection}{\numberline {1.1.2}Zariski Topology}{1}{subsection.1.1.2}%
-\contentsline {section}{\numberline {1.2}Homological Algebra}{1}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Projective and Injective Objects}{1}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Flat Modules}{1}{subsection.1.2.2}%
-\contentsline {subsection}{\numberline {1.2.3}Derived Functors}{1}{subsection.1.2.3}%
-\contentsline {chapter}{\numberline {2}Hilbert's Nullstellensatz}{3}{chapter.2}%
