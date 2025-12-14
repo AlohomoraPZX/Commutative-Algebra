@@ -1,0 +1,218 @@
+\section{Homological Algebra}
+\subsection{Projective and Injective Objects}
+Recall that in homological algebra we already knew that functor $\Hom(M,-) : \mathscr{A} \to \mathsf{Ab}$ is left exact for any $M \in \Ob(\mathscr{A})$, since $\Hom(M,-)$ preserves limits. A natural question is whether it is actually an exact functor or not. The following example shows that the functor can fail to be right exact.
+\begin{example}
+    Consider the following exact sequence:
+\[\begin{tikzcd}[column sep=scriptsize]
+	0 && {\mathbb{Z}} && {\mathbb{Z}} && {\mathbb{Z}/2\mathbb{Z}} && 0
+	\arrow[from=1-1, to=1-3]
+	\arrow["\times2", from=1-3, to=1-5]
+	\arrow["{\operatorname{mod}2}", from=1-5, to=1-7]
+	\arrow[from=1-7, to=1-9]
+\end{tikzcd}\]
+Let $M = \mathbb{Z}/2\mathbb{Z}$, the following sequence 
+\[\begin{tikzcd}[column sep=scriptsize]
+	{\operatorname{Hom}(\mathbb{Z}/2\mathbb{Z},\mathbb{Z})} && {\operatorname{Hom}(\mathbb{Z}/2\mathbb{Z},\mathbb{Z})} && {\operatorname{End}(\mathbb{Z}/2\mathbb{Z})} && 0
+	\arrow["\times2", from=1-1, to=1-3]
+	\arrow["{\operatorname{mod}2}", from=1-3, to=1-5]
+	\arrow[from=1-5, to=1-7]
+\end{tikzcd}\]
+cannot be exact at all. Indeed, $\mathbb{Z}/2\mathbb{Z}$ is a torison module, but $\mathbb{Z}$ is torison-free, hence $\Hom(\mathbb{Z}/2\mathbb{Z}, \mathbb{Z})$ could only be $\{0\}$. But $|\End(\mathbb{Z}/2\mathbb{Z})|$ has $2$ elements, which is a contradiction.
+\end{example}
+
+So natually, it comes to us that when does $\Hom(M,-)$ be exact? The question leads to the definition of projective and injective objects.
+\begin{definition}
+    Let $\mathscr{A}$ be an abelian category, an object $M \in \Ob(\mathscr{A})$ is called \textbf{projective} (resp. \textbf{injective}), if $\Hom(M,-)$ (resp. $\Hom(-,M)$) is exact.
+\end{definition}
+The name actually comes from the following properties:
+\begin{proposition}
+    An object $M \in \Ob(\mathscr{A})$ is projective if and only if for any epimorphism $f : X\to Y$ and morphism $g : M \to Y$, there exists some $\varphi : M \to X$ such that the diagram 
+    \[\begin{tikzcd}[column sep=scriptsize]
+	&& M \\
+	\\
+	X && Y && 0
+	\arrow["{\varphi}"', from=1-3, to=3-1]
+	\arrow["g", from=1-3, to=3-3]
+	\arrow["f", from=3-1, to=3-3]
+	\arrow[from=3-3, to=3-5]
+\end{tikzcd}\]
+commutes.
+\end{proposition}
+\begin{remark}
+    This property is often referred to as \textbf{the lifting property} of projective objects. Notice that the uniqueness of $\varphi$ is not required.
+\end{remark}
+\begin{proof}
+    ($\Rightarrow$) $\Hom(M,-)$ preserves epimorphisms since it is right exact and preserves cokernels, hence we obtain 
+    \[\begin{tikzcd}
+	{\operatorname{Hom}(M,X)} && {\operatorname{Hom}(M,Y)} && 0
+	\arrow["{f_{*}}", from=1-1, to=1-3]
+	\arrow[from=1-3, to=1-5]
+\end{tikzcd}\]
+Since $\Hom(M,X)$ and $\Hom(M,Y)$ are abelian groups, hence $f_{*}$ is surjective. Therefore, for every $g \in \Hom(M,Y)$, there exists some $\varphi \in \Hom(M,X)$ such that $f\circ \varphi =  f_{*}(\varphi) = g$, which shows the commutativity of the diagram.
+
+($\Leftarrow$) Now suppose we have the sequence 
+\[\begin{tikzcd}
+	X && Y && Z && 0
+	\arrow["f", from=1-1, to=1-3]
+	\arrow["g", from=1-3, to=1-5]
+	\arrow[from=1-5, to=1-7]
+\end{tikzcd}\]
+exact, it suffices to show the $\Hom(M,-)$ one is also exact.
+
+The surjectiveness of $g_{*}$ is a direct result of the lifting property. As for $f_{*}$, since $g_{*} \circ f_{*} = (g\circ f)_{*} = 0$, we obtain $\HIm f_{*} \subset \Ker g_{*}$. It suffices to show $\Ker g_{*} \subset \HIm f_{*}$. Suppose $\beta \in \Hom(M,Y)$ such that $g\circ \beta = 0$, consider the following diagram:
+\[\begin{tikzcd}
+	&&&&& M \\
+	\\
+	&& X && Y && Z && 0 \\
+	{\operatorname{Coim}f} && {\operatorname{Im}f} && {\operatorname{Ker}g} && \textcolor{rgb,255:red,214;green,92;blue,92}{0}
+	\arrow["\alpha"', color={rgb,255:red,214;green,92;blue,92}, from=1-6, to=3-3]
+	\arrow["\beta"', from=1-6, to=3-5]
+	\arrow["\gamma", from=1-6, to=3-7]
+	\arrow["\delta", color={rgb,255:red,214;green,92;blue,92}, from=1-6, to=4-5]
+	\arrow["f", from=3-3, to=3-5]
+	\arrow["\pi"', two heads, from=3-3, to=4-1]
+	\arrow["p"', two heads, from=3-3, to=4-3]
+	\arrow["\eta", color={rgb,255:red,214;green,92;blue,92}, from=3-3, to=4-5]
+	\arrow["g", from=3-5, to=3-7]
+	\arrow[from=3-7, to=3-9]
+	\arrow["{\cong }"{description}, hook, two heads, from=4-1, to=4-3]
+	\arrow["\kappa"', hook, from=4-3, to=3-5]
+	\arrow["\cong"{description}, hook, two heads, from=4-3, to=4-5]
+	\arrow["\iota", hook, from=4-5, to=3-5]
+	\arrow[color={rgb,255:red,214;green,92;blue,92}, from=4-5, to=4-7]
+\end{tikzcd}\]
+By the universal property of kernel, there is a unique $\delta : M \to \Ker g$ and $\eta : X \to \Ker g$ such that $\beta = \iota \circ \delta$ and $f = \iota \circ \eta$. 
+
+We claim that $\eta$ is surjective. The exactness of the original sequence yields the cannonical morphism $\HIm f \to \Ker g$ to be isomorphic, hence $$f = \iota \circ \eta = \iota \circ (X \twoheadrightarrow \operatorname{Coim}f \xrightarrow{\cong} \Ker g) \Leftrightarrow \eta = (X\twoheadrightarrow \Ker g)$$
+by the injectiveness of $\iota$. 
+
+Now, the lifting property of $M$ gives an $\alpha \in \Hom(M,X)$ which commutes the red diagram. Since $f \circ \alpha = (\iota \circ \eta) \circ \alpha = \iota \circ \delta = \beta$, we conclude that $\beta = f_{*}(\alpha) \in \HIm f_{*}$, which in turn shows that $\Ker g_{*} \subset \HIm f_{*}$ and completes the proof.
+\end{proof}
+
+The analogue to the result above is \textit{the extension property} of injective objects, which can be stated as following:
+\begin{proposition}
+    An object $M \in \Ob(\mathscr{A})$ is injective if and only if for any monomorphism $f : X\to Y$ and morphism $g : X \to M$, there exists some $\varphi : Y \to M$ such that the diagram
+\[\begin{tikzcd}
+	0 && X && Y \\
+	\\
+	&& M
+	\arrow[from=1-1, to=1-3]
+	\arrow["f", from=1-3, to=1-5]
+	\arrow["g", from=1-3, to=3-3]
+	\arrow["\varphi", from=1-5, to=3-3]
+\end{tikzcd}\]
+commutes. We say $g$ is extended to $\varphi$ by $f$.
+\end{proposition}
+
+An interesting fact is that projective and injective objects have close relationship with split exact sequences, hence are close with direct sums.
+\begin{proposition}
+	Suppose $0\longrightarrow A \xlongrightarrow{f} B \xlongrightarrow{g} C \longrightarrow 0$ is an exact sequence in an abelian category $\mathscr{A}$, then the sequence splits if $C$ (resp. $A$) is projective (resp. injective), hence we obtain $B \cong A\oplus C$.
+\end{proposition}
+\begin{proof}
+	Suppose $C$ be a projective object, then we obtain $\varphi : C \to B$ such that the diagram
+	\[\begin{tikzcd}[column sep=scriptsize]
+	&& C \\
+	\\
+	B && C && 0
+	\arrow["{{\varphi}}"', from=1-3, to=3-1]
+	\arrow["{\operatorname{id}}"{inner sep=.8ex}, "{\shortmid\shortmid}"{marking}, no head, from=1-3, to=3-3]
+	\arrow["g", from=3-1, to=3-3]
+	\arrow[from=3-3, to=3-5]
+\end{tikzcd}\]
+commutes, meaning that $g \circ \varphi = \id_C$, which shows that the sequence splits.
+
+As for the case of injective objects, the proof is a complete analogue.
+\end{proof}
+
+Talking about the direct sum, the following proposition shows that the direct summand of project objects is also projective.
+\begin{proposition}
+	Suppose $I$ is an index set, $\{M_i\}_{i \in I}$ is a family of objects in an abelian category $\mathscr{A}$, then $\bigoplus_{i\in I} M_i$ is projective if and only if each $M_i$ is projective.
+\end{proposition}
+\begin{proof}
+	($\Leftarrow$) Suppose each $M_i$ is projective, we are going to show $N = \bigoplus_{i\in I} M_i$ is also projective. Let $f : X \to Y$ be an epimorphism, $\tilde{g} : \bigoplus_{i\in I} M_i \to Y$, which in fact gives a family of morphisms $g_i : M_i \to Y$ by setting $g_i = \tilde{g} \circ \iota_i$, where $\{\iota_i\}$ are cannonical morphisms. Now consider the diagram:
+	\[\begin{tikzcd}[column sep=scriptsize]
+	&&& X \\
+	\\
+	&&& Y \\
+	{M_i} && {\bigoplus_{i\in I} M_i} && {M_j} \\
+	&&& 0
+	\arrow["f", dashed, two heads, from=1-4, to=3-4]
+	\arrow[dashed, from=3-4, to=5-4]
+	\arrow["{\varphi_i}", from=4-1, to=1-4]
+	\arrow["{g_i}", dashed, from=4-1, to=3-4]
+	\arrow["\iota_i"{description}, from=4-1, to=4-3]
+	\arrow["{{\tilde{\varphi}}}", from=4-3, to=1-4]
+	\arrow["{{\tilde{g}}}"', dashed, from=4-3, to=3-4]
+	\arrow["{\varphi_j}"', from=4-5, to=1-4]
+	\arrow["{g_j}"', dashed, from=4-5, to=3-4]
+	\arrow["{{\iota_j}}"{description}, from=4-5, to=4-3]
+\end{tikzcd}\]
+By the liftting property of each $M_i$, we obtain $\varphi_i : M \to X$ such that $g_i = f\circ \varphi_i$. Now, by the universal property of direct sum, we obtain a $\tilde{\varphi} : \bigoplus_{i \in I} M_i\to X$ such that $\varphi_i = \tilde{\varphi} \circ \iota_i$. 
+
+We aim to show the whole diagram commutes, which only requires $\tilde{g} = f\circ \tilde{\varphi}$. In fact, we have $(f\circ \tilde{\varphi}) \circ \iota_i = f\circ \varphi_i = g_i$ for each $i\in I$, thus by the universal property, we have $f\circ \tilde{\varphi} = \tilde{g}$, which completes the proof.
+
+($\Rightarrow$) Now suppose $\bigoplus_{i\in I} M_i$ be projective, $g_i : M_i \to Y$. Our goal is to show the existence of some $\varphi_i$ such that $g_i = f \circ \varphi_i$. Actually, set $g_j = 0$ for any $j\neq i$, which defines a unique $\tilde{g} : \bigoplus_{i \in I} M_i \to Y$ which commutes the diagram in the bottom surface. By the lifting property, we obtain a $\tilde{\varphi} : \bigoplus_{i\in I} M_i \to X$, which commutes the vertical diagram. Now notice that $f \circ (\tilde{\varphi} \circ \iota_i) = g_i$. We may set $\varphi_i = \tilde{\varphi} \circ \iota_i$, which completes the proof.
+\end{proof}
+
+\begin{corollary}
+	Direct summands of a projective object are always projective. 
+\end{corollary}
+
+Now we state a much more general fact about projective and injective objects.
+\begin{proposition}
+	Let $\mathcal{F} : \mathscr{A} \to \mathscr{B}$ be a functor, where $\mathscr{A}, \mathscr{B}$ are both abelian categories. If $\mathcal{F}$ admits a right adjoint $\mathcal{G} : \mathscr{B} \to \mathscr{A}$ which preserves surjectiveness, then $\mathcal{F}$ preserves projectiveness.
+\end{proposition}
+\begin{proof}
+	Suppose $M \in \Ob(\mathscr{A})$ be projective, we aim to show that $\mathcal{F}(M)$ is also projective. Let $f : X \twoheadrightarrow Y$ be an arbitrary epimorphism, where $X, Y\in \Ob(\mathscr{B})$, the adjunction suggests the diagram 
+	\[\begin{tikzcd}[column sep=scriptsize]
+	{\operatorname{Hom}_{\mathscr{A}}(M,\mathcal{G}(X))} &&& {\operatorname{Hom}_{\mathscr{A}}(M,\mathcal{G}(Y))} \\
+	\\
+	{\operatorname{Hom}_{\mathscr{B}}(\mathcal{F}(M),X)} &&& {\operatorname{Hom}_{\mathscr{B}}(\mathcal{F}(M),Y)}
+	\arrow["{(\mathcal{G}(f))_{*}}", from=1-1, to=1-4]
+	\arrow["{\eta_X}"', hook, two heads, from=1-1, to=3-1]
+	\arrow["{\eta_Y}", hook, two heads, from=1-4, to=3-4]
+	\arrow["{f_{*}}", from=3-1, to=3-4]
+\end{tikzcd}\]
+commutes. Suppose $v : \mathcal{F}(M) \to Y$, we obtain a $\eta_Y^{-1} \circ v : M \to \mathcal{G}(Y)$. Since $\mathcal{G}(f)$ is still an epimorphism in $\mathscr{A}$, the liftting property of $M$ gives some $u : M \to \mathcal{G}(X)$ such that the diagram 
+\[\begin{tikzcd}[column sep=scriptsize]
+	&& M \\
+	\\
+	{\mathcal{G}(X)} && {\mathcal{G}(Y)} && 0
+	\arrow["u"', from=1-3, to=3-1]
+	\arrow["{\eta_Y^{-1}\circ v}", from=1-3, to=3-3]
+	\arrow["{\mathcal{G}(f)}", from=3-1, to=3-3]
+	\arrow[from=3-3, to=3-5]
+\end{tikzcd}\]
+commutes. Let $\tilde{u} = \eta_X \circ u \in \Hom_\mathscr{B}(\mathcal{F}(M), X)$, the adjuction suggests 
+    $$f_{*}(\tilde{u}) =  f \circ \eta_X(u) 
+                       = \eta_Y(\mathcal{G}(f)\circ u) 
+                       = \eta_Y(\eta_Y^{-1}\circ v) = v,$$
+which means that the following diagram
+\[\begin{tikzcd}[column sep=scriptsize]
+	&& {\mathcal{F}(M)} \\
+	\\
+	X && Y && 0
+	\arrow["{\eta_X(u)}"', from=1-3, to=3-1]
+	\arrow["v", from=1-3, to=3-3]
+	\arrow["f", from=3-1, to=3-3]
+	\arrow[from=3-3, to=3-5]
+\end{tikzcd}\]
+commutes, which completes the proof.
+\end{proof}
+\begin{remark}
+    Now let me simply explain how this derives the result that direct sum of projective objects is still projective. Consider the coproduct functor $\mathcal{F} = \bigoplus_{i\in I}(-) : \mathscr{A}^{I} \to \mathscr{A}$ defined by $(M_i)_{i\in I} \mapsto \bigoplus_{i\in I} M_i$, and the diagonal functor $\Delta : \mathscr{A} \to \mathscr{A}^I$ defined by $M \mapsto (M)_{i\in I}$. We aim to show that $\Delta$ is the right adjoint of $\mathcal{F}$.
+
+    In fact, suppose $\mathscr{I} \in \mathscr{A}^I$, the universal property of direct sum suggests that for each $A \in \Ob(\mathscr{A})$, we have
+    $$\begin{aligned}
+    \Hom_{\mathscr{A}}(A, \mathcal{F}(\mathscr{I})) = \Hom_\mathscr{A}\left(A, \bigoplus_{i \in I} M_i\right) &\cong \bigoplus_{i\in I} \Hom_\mathscr{A}(A, M_i) \\ 
+    &\cong \Hom_{\mathscr{A}^I}(\Delta(A), \mathscr{I}),
+    \end{aligned}$$
+    which suggests adjunction. Now, $\Delta$ preserves surjectiveness since epimorphisms in $\mathscr{A}^I$ are defined componentwise, which completes the proof.
+\end{remark}
+
+% In R-Mod category, M is projective \Leftrightarrow M is a summand of some free module F.
+% The Baer criterion of injective modules: the extension property of I guarantees injectiveness.
+
+\subsection{Flat Modules}
+
+\subsection{Derived Functors}

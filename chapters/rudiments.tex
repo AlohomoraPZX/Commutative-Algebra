@@ -1,123 +1,12 @@
 \chapter{Rudiments}
 In this section, we briefly recall some basic concepts in abstract algebra and homological algebra (especially when things happen in $R$-$\mathsf{Mod}$ category).
 
-\section{Homological Algebra}
-\subsection{Projective and Injective Objects}
-Recall that in homological algebra we already knew that functor $\Hom(M,-) : \mathscr{A} \to \mathsf{Ab}$ is left exact for any $M \in \Ob(\mathscr{A})$, since $\Hom(M,-)$ preserves limits. A natural question is whether it is actually an exact functor or not. The following example shows that the functor can fail to be right exact.
-\begin{example}
-    Consider the following exact sequence:
-\[\begin{tikzcd}[column sep=scriptsize]
-	0 && {\mathbb{Z}} && {\mathbb{Z}} && {\mathbb{Z}/2\mathbb{Z}} && 0
-	\arrow[from=1-1, to=1-3]
-	\arrow["\times2", from=1-3, to=1-5]
-	\arrow["{\operatorname{mod}2}", from=1-5, to=1-7]
-	\arrow[from=1-7, to=1-9]
-\end{tikzcd}\]
-Let $M = \mathbb{Z}/2\mathbb{Z}$, the following sequence 
-\[\begin{tikzcd}[column sep=scriptsize]
-	{\operatorname{Hom}(\mathbb{Z}/2\mathbb{Z},\mathbb{Z})} && {\operatorname{Hom}(\mathbb{Z}/2\mathbb{Z},\mathbb{Z})} && {\operatorname{End}(\mathbb{Z}/2\mathbb{Z})} && 0
-	\arrow["\times2", from=1-1, to=1-3]
-	\arrow["{\operatorname{mod}2}", from=1-3, to=1-5]
-	\arrow[from=1-5, to=1-7]
-\end{tikzcd}\]
-cannot be exact at all. Indeed, $\mathbb{Z}/2\mathbb{Z}$ is a torison module, but $\mathbb{Z}$ is torison-free, hence $\Hom(\mathbb{Z}/2\mathbb{Z}, \mathbb{Z})$ could only be $\{0\}$. But $|\End(\mathbb{Z}/2\mathbb{Z})|$ has $2$ elements, which is a contradiction.
-\end{example}
+% part 1: Homological Algebra. auth: ritlemonPeng
+\input{chapters/rudiments/rudi_hom_alg.tex}
 
-So natually, it comes to us that when does $\Hom(M,-)$ be exact? The question leads to the definition of projective and injective objects.
-\begin{definition}
-    Let $\mathscr{A}$ be an abelian category, an object $M \in \Ob(\mathscr{A})$ is called \textbf{projective} (resp. \textbf{injective}), if $\Hom(M,-)$ (resp. $\Hom(-,M)$) is exact.
-\end{definition}
-The name actually comes from the following properties:
-\begin{proposition}
-    An object $M \in \Ob(\mathscr{A})$ is projective if and only if for any epimorphism $f : X\to Y$ and morphism $g : M \to Y$, there exists some $\varphi : M \to X$ such that the diagram 
-    \[\begin{tikzcd}[column sep=scriptsize]
-	&& M \\
-	\\
-	X && Y && 0
-	\arrow["{\varphi}"', from=1-3, to=3-1]
-	\arrow["g", from=1-3, to=3-3]
-	\arrow["f", from=3-1, to=3-3]
-	\arrow[from=3-3, to=3-5]
-\end{tikzcd}\]
-commutes.
-\end{proposition}
-\begin{remark}
-    This property is often referred to as 'the lifting property' of projective modules. Notice that the uniqueness of $\varphi$ is not required.
-\end{remark}
-\begin{proof}
-    ($\Rightarrow$) $\Hom(M,-)$ preserves epimorphisms since it is right exact and preserves cokernels, hence we obtain 
-    \[\begin{tikzcd}
-	{\operatorname{Hom}(M,X)} && {\operatorname{Hom}(M,Y)} && 0
-	\arrow["{f_{*}}", from=1-1, to=1-3]
-	\arrow[from=1-3, to=1-5]
-\end{tikzcd}\]
-Since $\Hom(M,X)$ and $\Hom(M,Y)$ are abelian groups, hence $f_{*}$ is surjective. Therefore, for every $g \in \Hom(M,Y)$, there exists some $\varphi \in \Hom(M,X)$ such that $f\circ \varphi =  f_{*}(\varphi) = g$, which shows the commutativity of the diagram.
+% part 2: Ring theory. auth:
+\input{chapters/rudiments/rudi_ring_theory.tex}
 
-($\Leftarrow$) Now suppose we have the sequence 
-\[\begin{tikzcd}
-	X && Y && Z && 0
-	\arrow["f", from=1-1, to=1-3]
-	\arrow["g", from=1-3, to=1-5]
-	\arrow[from=1-5, to=1-7]
-\end{tikzcd}\]
-exact, it suffices to show the $\Hom(M,-)$ one is also exact.
 
-The surjectiveness of $g_{*}$ is a direct result of the lifting property. As for $f_{*}$, since $g_{*} \circ f_{*} = (g\circ f)_{*} = 0$, we obtain $\HIm f_{*} \subset \Ker g_{*}$. It suffices to show $\Ker g_{*} \subset \HIm f_{*}$. Suppose $\beta \in \Hom(M,Y)$ such that $g\circ \beta = 0$, consider the following diagram:
-\[\begin{tikzcd}
-	&&&&& M \\
-	\\
-	&& X && Y && Z && 0 \\
-	{\operatorname{Coim}f} && {\operatorname{Im}f} && {\operatorname{Ker}g} && \textcolor{rgb,255:red,214;green,92;blue,92}{0}
-	\arrow["\alpha"', color={rgb,255:red,214;green,92;blue,92}, from=1-6, to=3-3]
-	\arrow["\beta"', from=1-6, to=3-5]
-	\arrow["\gamma", from=1-6, to=3-7]
-	\arrow["\delta", color={rgb,255:red,214;green,92;blue,92}, from=1-6, to=4-5]
-	\arrow["f", from=3-3, to=3-5]
-	\arrow["\pi"', two heads, from=3-3, to=4-1]
-	\arrow["p"', two heads, from=3-3, to=4-3]
-	\arrow["\eta", color={rgb,255:red,214;green,92;blue,92}, from=3-3, to=4-5]
-	\arrow["g", from=3-5, to=3-7]
-	\arrow[from=3-7, to=3-9]
-	\arrow["{\cong }"{description}, hook, two heads, from=4-1, to=4-3]
-	\arrow["\kappa"', hook, from=4-3, to=3-5]
-	\arrow["\cong"{description}, hook, two heads, from=4-3, to=4-5]
-	\arrow["\iota", hook, from=4-5, to=3-5]
-	\arrow[color={rgb,255:red,214;green,92;blue,92}, from=4-5, to=4-7]
-\end{tikzcd}\]
-By the universal property of kernel, there is a unique $\delta : M \to \Ker g$ and $\eta : X \to \Ker g$ such that $\beta = \iota \circ \delta$ and $f = \iota \circ \eta$. 
-
-We claim that $\eta$ is surjective. The exactness of the original sequence yields the cannonical morphism $\HIm f \to \Ker g$ to be isomorphic, hence $$f = \iota \circ \eta = \iota \circ (X \twoheadrightarrow \operatorname{Coim}f \xrightarrow{\cong} \Ker g) \Leftrightarrow \eta = (X\twoheadrightarrow \Ker g)$$
-by the injectiveness of $\iota$. 
-
-Now, the lifting property of $M$ gives an $\alpha \in \Hom(M,X)$ which commutes the red diagram. Since $f \circ \alpha = (\iota \circ \eta) \circ \alpha = \iota \circ \delta = \beta$, we conclude that $\beta = f_{*}(\alpha) \in \HIm f_{*}$, which in turn shows that $\Ker g_{*} \subset \HIm f_{*}$ and completes the proof.
-\end{proof}
-
-The analogue to the result above is \textit{the extension property} of injective modules, which can be stated as following:
-\begin{proposition}
-    An object $M \in \Ob(\mathscr{A})$ is injective if and only if for any monomorphism $f : X\to Y$ and morphism $g : X \to M$, there exists some $\varphi : Y \to M$ such that the diagram
-\[\begin{tikzcd}
-	0 && X && Y \\
-	\\
-	&& M
-	\arrow[from=1-1, to=1-3]
-	\arrow["f", from=1-3, to=1-5]
-	\arrow["g", from=1-3, to=3-3]
-	\arrow["\varphi", from=1-5, to=3-3]
-\end{tikzcd}\]
-commutes. We say $g$ is extended to $\varphi$ by $f$.
-\end{proposition}
-
-% To be added: \bigoplus_{i \in I} M_i is projective \Leftrightarrow each M_i is projective.
-% In R-Mod category, M is projective \Leftrightarrow M is a summand of some free module F.
-% The Baer criterion of injective modules: the extension property of I guarantees injectiveness.
-
-\subsection{Flat Modules}
-
-\subsection{Derived Functors}
-
-\section{Ring Theory}
-\subsection{Radical of Ideals}
-
-\subsection{Localization}
 
 
