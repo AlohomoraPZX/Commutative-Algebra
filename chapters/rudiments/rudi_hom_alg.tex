@@ -125,7 +125,7 @@ As for the case of injective objects, the proof is a complete analogue.
 \end{proof}
 
 Talking about the direct sum, the following proposition shows that the direct summand of project objects is also projective.
-\begin{proposition}
+\begin{proposition}\label{ref: direct sum of projective modules}
 	Suppose $I$ is an index set, $\{M_i\}_{i \in I}$ is a family of objects in an abelian category $\mathscr{A}$, then $\bigoplus_{i\in I} M_i$ is projective if and only if each $M_i$ is projective.
 \end{proposition}
 \begin{proof}
@@ -210,6 +210,55 @@ commutes, which completes the proof.
     which suggests adjunction. Now, $\Delta$ preserves surjectiveness since epimorphisms in $\mathscr{A}^I$ are defined componentwise, which completes the proof.
 \end{remark}
 
+Now let's turn to some more specific category. Suppose $R$ be a commutative ring, and $\mathscr{A} = R\text{-}\mathsf{Mod}$. We will see that projective modules are exactly the direct summands of free modules.
+\begin{proposition}
+	Let $M$ be an $R$-module. Then $M$ is projective if and only if there exists some free $R$-module $N$ such that $N \cong M\oplus M'$.
+\end{proposition}
+\begin{proof}
+	($\Leftarrow$) Immediately from Proposition \ref{ref: direct sum of projective modules}.
+
+	($\Rightarrow$) Take $M^I = F(M)$, where $F$ is the free functor. Then we have a cannonical epimorphism $f : M^I \twoheadrightarrow M$. Consider the following exact sequence
+	\[\begin{tikzcd}[column sep=scriptsize]
+	0 && {\operatorname{Ker}f} && {M^I} && M && 0
+	\arrow[from=1-1, to=1-3]
+	\arrow["\iota", from=1-3, to=1-5]
+	\arrow["f", from=1-5, to=1-7]
+	\arrow[from=1-7, to=1-9]
+\end{tikzcd}\]
+Since $M$ is projective, the sequence splits. Hence, we obtain $M^I \cong M\oplus \Ker f$.
+\end{proof}
+
+We have seen that submodules of a free module are still free if $R$ is a PID. Hence, projective modules are exactly free modules. However, generally it is not true.
+\begin{example}
+	$\mathbb{Z}/6\mathbb{Z}$-module $\mathbb{Z}/2\mathbb{Z}$ is projective, but not free.
+\end{example}
+\begin{proof}
+	By the Chinese Remainder Theorem we obtain $\mathbb{Z}/6\mathbb{Z} \cong \mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/3\mathbb{Z}$ as $\mathbb{Z}$-module. Tensor product functor $(-)\otimes_{\mathbb{Z}} \mathbb{Z}/6\mathbb{Z}$ is additive, hence preserves direct sums. We obtain $\mathbb{Z}/6\mathbb{Z} \cong (\mathbb{Z}/2\mathbb{Z} \otimes_{\mathbb{Z}} \mathbb{Z}/6\mathbb{Z}) \oplus (\mathbb{Z}/3\mathbb{Z} \otimes_{\mathbb{Z}} \mathbb{Z}/6\mathbb{Z})$, which shows that $\mathbb{Z}/2\mathbb{Z}$ is projective as $\mathbb{Z}/6\mathbb{Z}$ module.
+
+	It is obvious that $\mathbb{Z}/2\mathbb{Z}$ is not free, since $2 \times [1] = 0$.
+\end{proof}
+
+Not every submodule of a free module is one of its direct summands, hence, not every submodule of a free module is projective. (But this is true if $R$ is a PID)
+\begin{example}
+	$\mathbb{Z}/2\mathbb{Z}$ is not projective as $\mathbb{Z}/4\mathbb{Z}$-module, but is a submodule of the latter, which is free on itself.
+\end{example}
+\begin{proof}
+	Suppose that there is some $\mathbb{Z}/4\mathbb{Z}$-module $N$ such that $N = \mathbb{Z}/2\mathbb{Z} \oplus M$, consider the element $a = \overline{1} + 0$, we have $2a =2\times \overline{1} + 0 = 0$, which is a contradiction since it is a torison element.
+\end{proof}
+
+Even submodule of a free module may fails to be projective, not to mention the case of submodules of a projective module. So naturally a question arises: when do the submodules of a projective module still be projective? A common case is when $R$ is a Dedekind domain.
+
+\begin{definition}
+	A ring $R$ is called \textbf{left semi-hereditary} if every finite generated left ideal of $R$ is projective. Moreover, if every left ideal of $R$ is projective, then $R$ is called \textbf{left hereditary}.
+\end{definition}
+
+The most important result of hereditary rings is the following theorem.
+\begin{theorem}[Kaplansky]
+	Let $R$ be a left hereditary ring, $F = \bigoplus_{i\in I} Re_i$ be a free module on $R$. Then any submodule $P$ of $F$ is isomorphic to a direct sum of left ideals of $R$, which shows that $P$ is projective.
+\end{theorem}
+\begin{proof}
+	(To be added).
+\end{proof}
 % In R-Mod category, M is projective \Leftrightarrow M is a summand of some free module F.
 % The Baer criterion of injective modules: the extension property of I guarantees injectiveness.
 
