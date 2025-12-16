@@ -257,9 +257,48 @@ The most important result of hereditary rings is the following theorem.
 	Let $R$ be a left hereditary ring, $F = \bigoplus_{i\in I} Re_i$ be a free module on $R$. Then any submodule $P$ of $F$ is isomorphic to a direct sum of left ideals of $R$, which shows that $P$ is projective.
 \end{theorem}
 \begin{proof}
-	(To be added).
+	The key is to use the fact that every set can be well-ordered. Now suppose we have a well order on $I$, let $F_{<\alpha} = \bigoplus_{\beta < \alpha} Re_{\beta}$, and $F_{\leq\alpha} = \bigoplus_{\beta \leq \alpha} Re_{\beta}$ for each $\alpha \in I$. Set $P_{<\alpha} = P \cap F_{<\alpha}$ and $P_{\leq\alpha} = P \cap F_{\leq\alpha}$.
+
+	We shall define a homomorphism $f_{\alpha} : P_{\leq \alpha} \to R$ by setting $f\left(\sum_{\beta \in I} r_\beta e_\beta\right) = r_\alpha$. It is trivial to verify that $\ker f_\alpha \cong P_{<\alpha}$, hence we obtain a exact sequence
+	\[\begin{tikzcd}[column sep=scriptsize]
+	0 && {\ker f_\alpha} && {P_{\leq \alpha}} && {\operatorname{im}f_\alpha} && 0
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-3, to=1-5]
+	\arrow["{f_\alpha}", from=1-5, to=1-7]
+	\arrow[from=1-7, to=1-9]
+\end{tikzcd}\]
+Since $\operatorname{im}f_\alpha$ is a left ideal of $R$, hence is projective. We obtain $P_{\leq \alpha} \cong P_{<\alpha} \oplus \operatorname{im}f_{\alpha}$ since the sequence splits. Let $Q_{\alpha}$ be the submodule of $P_{\leq \alpha}$ such that $f_{\alpha}|_{Q_\alpha} : Q_\alpha \to \operatorname{im}f_{\alpha}$ is an isomorphism.
+
+We claim that $P \cong \bigoplus_{\alpha \in I} Q_\alpha$. Suppose there is some $x \in P$ such that $x \notin \sum_{\alpha \in I} Q_\alpha$. But since $x \in P \subset F$, we have $x = a_{\alpha_1}e_{\alpha_1} + \cdots + a_{\alpha_n}e_{\alpha_n}$, where $a_{\alpha_i} \in R$. Hence, there is a minimal $\beta = \alpha_n \in I$ such that $x \in P_{\leq\beta} = P_{<\beta} \oplus Q_\beta$. Hence, $x = y + z$ for some $y\in P_{<\beta}$ and $z \in Q_\beta$, which shows that $y \notin \sum_{\alpha\in I} Q_\alpha$, a contradiction with the minimality of $\beta$. Therefore, $P = \sum_{\alpha \in I} Q_\alpha$.
+
+Now we only to verify that the sum is actually direct sum. Suppose there are some $a_{\alpha_i} \in Q_{\alpha_i}$ such that $a_{\alpha_1} + \cdots + a_{\alpha_n} = 0$. WLOG, assume $\alpha_1 < \cdots < \alpha_n$, we obtain $$a_{\alpha_n} = -(a_{\alpha_1} + \cdots + a_{\alpha_{n-1}}) \in Q_{\alpha_n} \cap P_{<\alpha} = 0$$
+By induction on $n$, we obtain $a_{\alpha_i} = 0$ for every $1 \leq i \leq n$, which completes the proof.
 \end{proof}
-% In R-Mod category, M is projective \Leftrightarrow M is a summand of some free module F.
+For more specific properties of hereditary ring, see \cite{ringel_ext2_online}.
+
+\begin{corollary}
+	Let $R$ be a left hereditary ring, $P$ be a left $R$-module. Then $P$ is projective if and only if $P$ is a submodule of some free module.
+\end{corollary}
+\begin{corollary}
+	Let $R$ be a ring, then TFAE:
+	\begin{enumerate}
+		\item $R$ is left hereditary;
+		\item Any submodule of a free $R$-module is projective;
+		\item Any submodule of a projective $R$-module is projective. 
+	\end{enumerate}
+\end{corollary}
+\begin{proof}
+	(1)$\Rightarrow$ (2), (2)$\Rightarrow$(3) are trivial. Assume (3), since $R$ is free over itself, hence every submodule (i.e. left ideals) of $R$ is projective. In other words, $R$ is left hereditary.
+\end{proof}
+
+\begin{definition}
+	A domain $R$ is called a \textbf{Dedekind domain} if it is hereditary.
+\end{definition}
+So by the proposition, we know that a Dedekind domain $R$ is a domain over which submodules of a projective module are still projective.
+\begin{remark}
+	You may hear that a Dedekind domain is a integral-closed Noetherian domain with Krull dimension $1$. We will prove the equivalence of those two definitions later.
+\end{remark}
+
 % The Baer criterion of injective modules: the extension property of I guarantees injectiveness.
 
 \subsection{Flat Modules}
