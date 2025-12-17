@@ -302,5 +302,21 @@ So by the proposition, we know that a Dedekind domain $R$ is a domain over which
 % The Baer criterion of injective modules: the extension property of I guarantees injectiveness.
 
 \subsection{Flat Modules}
-
+We have already seen in homological algebra that $-\otimes_R M \dashv \Hom(M,-)$ by the natural isomorphism 
+$$\Hom_{R\text{-}\mathsf{Mod}}(A\otimes_R M, B) \cong \Hom_{R\text{-}\mathsf{Mod}}(A, \Hom(M,B))$$
+given by the universal property of tensor products, that is: every bilinear transformation $\tau : A\times M \to B$ factors through $A\otimes_R M$. Hence, the tensor product functor is right exact. Similarly, we want to find out when would it be exact. Generally, it is not true.
+\begin{example}
+	Consider $f : \mathbb{Z} \to \mathbb{Z}$ defined by $x \mapsto 2x$, we have the sequence 
+	\[\begin{tikzcd}[column sep=scriptsize]
+	0 && {\mathbb{Z}} && {\mathbb{Z}} && {\mathbb{Z}/2\mathbb{Z}} && 0
+	\arrow[from=1-1, to=1-3]
+	\arrow["f", from=1-3, to=1-5]
+	\arrow["\pi", from=1-5, to=1-7]
+	\arrow[from=1-7, to=1-9]
+\end{tikzcd}\]
+exact. Now we tensor the sequence with $\mathbb{Z}/4\mathbb{Z}$, which cannot be exact since $f \otimes_\mathbb{Z} \mathbb{Z}/4\mathbb{Z} : x + 4\mathbb{Z} \mapsto 2x + 4\mathbb{Z}$ is no longer injective.
+\end{example}
+\begin{definition}
+	Let $R$ be a ring. An $R$-module $M$ is called \textbf{flat} if functor $(-)\otimes_R M$ is exact.
+\end{definition}
 \subsection{Derived Functors}
