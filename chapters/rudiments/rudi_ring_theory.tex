@@ -1,6 +1,175 @@
 \section{Ring Theory}
 \subsection{Radical of Ideals}
+\begin{definition}
+    Let R be a commutative ring,and I an ideal of R.The \textbf{radical} of I,denoted $\sqrt{I}$,is defined as 
+    \[
+    \sqrt{I}=\{r \in R \mid \exists n \in \mathbb{N} \text{ s.t. } r^n \in I\}.
+    \]
+    If $\sqrt{I}=I$,we say I is a \textbf{radical ideal}. the \textbf{nilradical} of R is $\mathfrak{N}=\sqrt{(0)}$.
+\end{definition}
+\begin{proposition}[Basic properties of radicals]
+    Let I,J be ideals in a commutative ring R.Then:
+    \[1.I \subseteq \sqrt{I}.\]
+    \[2.\sqrt{\sqrt{I}}=\sqrt{I}\]
+    \[3.\sqrt{IJ}=\sqrt{I \cap J}=\sqrt{I}\cap\sqrt{J}\]
+    \[4.\sqrt{I+J}=\sqrt{\sqrt{I}+\sqrt{J}}\]
+    \[5.\text{If I is prime,then}\sqrt{I}=I\]
+\end{proposition}
+\begin{proof}
+    (1),(2)and(5) are trivial.For (3),$IJ \subseteq I \cap J \subseteq I,J \Longrightarrow \sqrt{IJ} \subseteq \sqrt{I\cap J}\subseteq \sqrt{I}\cap\sqrt{J}$.Conversely,if $x \in \sqrt{I} \cap \sqrt{J}$,then $\exists m,n\text{ such that }x^m \in I \text{ and }x^n \in J\Longrightarrow x^{m+n}\in IJ\Longrightarrow x\in \sqrt{IJ}$.For (4),$I+J \subseteq \sqrt{I}+\sqrt{J} \subseteq \sqrt{I+J}$.
+\end{proof}
+The radical of an ideal palys a crucial role in algebraic geometry by \hyperref[Hilbert's Nullstellensatz]{Hilbert's Nullstellensatz}.From a homological perspective,the quotient rings R/I and R/$\sqrt{I}$ are closely related.
+\begin{proposition}
+    There exists a surjective homomorphism:
+    \[\pi: R/I \longrightarrow R/\sqrt{I}\]
+    \[r+I\longmapsto r+\sqrt{I}\]
+\end{proposition}
+\begin{proof}~\\
+    1.Well-definedness\\
+    Suppose $r_1+I=r_2+I$.Then $r_1-r_2\in I \subseteq \sqrt{I}$.\\
+    2.Ring homomorphism\\
+    For any $r_1,r_2\in R$:
+    \[\pi((r_1+I)+(r_2+I))=\pi((r_1+r_2)+I)=(r_1+r_2)+\sqrt{I}=(r_1+\sqrt{I})+(r_2+\sqrt{I})=\pi(r_1+I)+\pi(r_2+I)\].
+    Similarly for multiplicartion:
+    \[\pi((r_1+I)(r_2+I))=\pi(r_1 r_2+I)=r_1 r_2+\sqrt{I}=(r_1+\sqrt{I})(r_2+\sqrt{I})=\pi(r_1+I)\pi(r_2+I)\].
+    3.Surjectivity\\
+    For any $r+\sqrt{I}\in R/\sqrt{I}$,select $r+I\in R/I$.Then $\pi(r+I=r+\sqrt{I})$.So $\pi$ is surjective.
+\end{proof}
+Moreover:
+\begin{corollary}
+    There exists an ring isomorphism:
+    \[(R/I)/(\sqrt{I}/I)\cong R/\sqrt{I}\].
+\end{corollary}
+\begin{proof}
+    \[\ker\pi=\{r+I\in R/I \mid \pi(r+I)=0+\sqrt{I}\}=\{r+I \mid r\in \sqrt{I}\}=\sqrt{I}/I\].
+    By the First isomorphism Theorem for rings:
+    \[(R/I)/(\ker\pi)\cong \HIm \pi\].
+    Since $\pi$ is surjective,Thus:
+    \[(R/I)/(\sqrt{I}/I)\cong r/\sqrt{I}\].
+\end{proof}
+\begin{proposition}
+    Let R be a Noetherian ring, I an ideal. Then $\sqrt{I}$ is the
+ intersection of all prime ideals containing I. In particular, the nilradical $\mathfrak{N}$ is the
+ intersection of all prime ideals of R.
+\end{proposition}
+\begin{proof}
+    Let $J=\bigcap_{\mathfrak{p}\supseteq I}\mathfrak{p}$.Clearly $\sqrt{I}\subseteq J$.For the reverse inclusion,suppose $x\notin \sqrt{I}$.Then the set $S=\{1,x,x^2,\cdots\}$ is disjoint from I. By Zorn's lemma,there exists an ideal $\mathfrak{p}$ maximal with respect to $I \subseteq \mathfrak{p}$ and $\mathfrak{p}\cap S=\varnothing$.Such $\mathfrak{p}$ is prime,so $x\notin J$.
+\end{proof}
+This intersection property is fundamental in the transition between algebra
+ and geometry. It also leads to \hyperref[proposition 0.2.4]{a homological observation}:
+ 
+ \begin{definition}
+    Let $R$ be a commutative ring, and $M$ an $R$-module. A prime ideal $\mathfrak{p}$ of $R$ is called an \textbf{associated prime ideal} of $M$ if there exists an element $x \in M$ such that $\mathfrak{p} = \operatorname{Ann}_R(x) = \{r \in R \mid rx = 0\}$. The set of associated prime ideals of $M$ is denoted by $\operatorname{Ass}_R(M)$.
+\end{definition}
 
+Equivalently, $\mathfrak{p} \in \operatorname{Ass}_R(M)$ $\Longleftrightarrow$ $M$ contains a submodule isomorphic to $R/\mathfrak{p}$. This characterization connects associated primes with the injective structure of the module category.
+
+ \begin{proposition}\label{proposition 0.2.4}
+    Let R be a Noetherian ring,I an ideal.Then the natural surjection $\pi:R/I\longrightarrow R/\sqrt{I}$induces an isomorphism on associated prime ideals: $\operatorname{Ass}_R(R/I) = \operatorname{Ass}_R(R/\sqrt{I})$. Moreover, for any $R$-module $M$, the induced map $\operatorname{Ext}^n_R(R/\sqrt{I}, M) \to \operatorname{Ext}^n_R(R/I, M)$ is injective for all $n \geq 0$.
+\end{proposition}
+
+\begin{proof}
+    Consider the short exact sequence induced by the natural projection:
+    \[
+    0 \longrightarrow \sqrt{I}/I \longrightarrow R/I \xlongrightarrow{\pi} R/\sqrt{I} \longrightarrow 0.
+    \]
+    Note that $\sqrt{I}/I$ is a nilpotent submodule of $R/I$. Indeed, for any 
+    $x \in \sqrt{I}$, there exists $n \geq 1$ such that $x^n \in I$, so 
+    $x^n \equiv 0 \pmod{I}$. Hence, the image of $x$ in $\sqrt{I}/I$ is nilpotent.
+
+    We prove the equality $\operatorname{Ass}_R(R/I) = \operatorname{Ass}_R(R/\sqrt{I})$ 
+    in two steps.\\
+
+  
+
+  1.$\operatorname{Ass}_R(R/I) \subseteq \operatorname{Ass}_R(R/\sqrt{I})$.
+
+    Let $\mathfrak{p} \in \operatorname{Ass}_R(R/I)$. Then there exists a nonzero 
+    element $\bar{y} \in R/I$ such that $\mathfrak{p} = \operatorname{Ann}_R(\bar{y})$. 
+    Consider its image $\pi(\bar{y}) \in R/\sqrt{I}$.
+
+    \textbf{Case 1:} If $\pi(\bar{y}) \neq 0$, then we claim $\mathfrak{p} = \operatorname{Ann}_R(\pi(\bar{y}))$. 
+    Indeed, for $r \in R$, we have:
+    \begin{align*}
+        r \in \operatorname{Ann}_R(\pi(\bar{y})) 
+        &\iff r\pi(\bar{y}) = 0 \\
+        &\iff \pi(r\bar{y}) = 0 \\
+        &\iff r\bar{y} \in \ker(\pi) = \sqrt{I}/I.
+    \end{align*}
+    But since $\mathfrak{p} = \operatorname{Ann}_R(\bar{y})$, we have $r\bar{y} = 0$ 
+    if and only if $r \in \mathfrak{p}$. If $r\bar{y} \in \sqrt{I}/I$ but $r\bar{y} \neq 0$, 
+    then $r\bar{y}$ is nilpotent, so there exists $m \geq 1$ such that 
+    $(r\bar{y})^m = r^m \bar{y}^m = 0$. Since $\bar{y}^m \neq 0$ (otherwise $\bar{y}$ 
+    would be nilpotent, but $\mathfrak{p}$ is prime and contains $\operatorname{Ann}_R(\bar{y})$, 
+    so $\bar{y}$ cannot be nilpotent unless $\bar{y}=0$), we have $r^m \in \operatorname{Ann}_R(\bar{y}^m) \subseteq \mathfrak{p}$ 
+    (the last inclusion follows because $\mathfrak{p}$ is a prime ideal containing 
+    $\operatorname{Ann}_R(\bar{y}^m)$). Hence $r \in \mathfrak{p}$. This shows 
+    $\operatorname{Ann}_R(\pi(\bar{y})) \subseteq \mathfrak{p}$. The reverse inclusion 
+    is clear: if $r \in \mathfrak{p}$, then $r\bar{y}=0$, so $r\pi(\bar{y})=0$. 
+    Therefore $\mathfrak{p} = \operatorname{Ann}_R(\pi(\bar{y}))$, so 
+    $\mathfrak{p} \in \operatorname{Ass}_R(R/\sqrt{I})$.
+
+    \textbf{Case 2:} If $\pi(\bar{y}) = 0$, then $\bar{y} \in \sqrt{I}/I$. Since 
+    $\bar{y} \neq 0$ and $\sqrt{I}/I$ is nilpotent, there exists a smallest integer 
+    $k \geq 2$ such that $\bar{y}^k = 0$ but $\bar{y}^{k-1} \neq 0$. Let 
+    $\bar{z} = \bar{y}^{k-1}$. Then:
+    \begin{itemize}
+        \item $\bar{z} \neq 0$,
+        \item $\mathfrak{p} = \operatorname{Ann}_R(\bar{y}) \subseteq \operatorname{Ann}_R(\bar{z})$,
+        \item $\bar{z}$ is not in $\sqrt{I}/I$ because if it were, then $\bar{z}$ 
+              would be nilpotent, so $\bar{z}^m = 0$ for some $m$, which would imply 
+              $\bar{y}^{(k-1)m} = 0$, contradicting the minimality of $k$.
+    \end{itemize}
+    We show that $\operatorname{Ann}_R(\bar{z}) = \mathfrak{p}$. Let $r \in \operatorname{Ann}_R(\bar{z})$, 
+    i.e., $r\bar{z} = 0$. Then $r\bar{y}^{k-1} = 0$, so $r\bar{y} \in \operatorname{Ann}_R(\bar{y}^{k-2})$. 
+    Since $\mathfrak{p}$ is a maximal annihilator (by definition of associated primes 
+    in a Noetherian ring), we have $r\bar{y} \in \mathfrak{p}$. If $r \notin \mathfrak{p}$, 
+    then since $\mathfrak{p}$ is prime, we must have $\bar{y} \in \mathfrak{p}$. 
+    But $\mathfrak{p} = \operatorname{Ann}_R(\bar{y})$, so there exists $s \notin \mathfrak{p}$ 
+    such that $s\bar{y}=0$, which contradicts $\bar{y} \in \mathfrak{p}$ (because 
+    then $s\bar{y}=0$ implies $s \in \mathfrak{p}$). Hence $r \in \mathfrak{p}$, so 
+    $\operatorname{Ann}_R(\bar{z}) = \mathfrak{p}$.
+
+    Now consider $\pi(\bar{z}) \in R/\sqrt{I}$. Since $\bar{z} \notin \sqrt{I}/I$, 
+    we have $\pi(\bar{z}) \neq 0$, and by the same argument as in Case 1, 
+    $\mathfrak{p} = \operatorname{Ann}_R(\pi(\bar{z}))$. Therefore 
+    $\mathfrak{p} \in \operatorname{Ass}_R(R/\sqrt{I})$.//
+
+    
+
+    2. $\operatorname{Ass}_R(R/\sqrt{I}) \subseteq \operatorname{Ass}_R(R/I)$.
+
+    Let $\mathfrak{p} \in \operatorname{Ass}_R(R/\sqrt{I})$. Then there exists 
+    $\bar{x} \in R/\sqrt{I}$ with $\bar{x} \neq 0$ such that 
+    $\mathfrak{p} = \operatorname{Ann}_R(\bar{x})$. Choose a lift $y \in R/I$ such 
+    that $\pi(y) = \bar{x}$. Clearly $y \neq 0$ (otherwise $\bar{x}=0$). We claim 
+    $\mathfrak{p} = \operatorname{Ann}_R(y)$.
+
+    For any $r \in \mathfrak{p}$, we have $r\bar{x} = 0$, so $\pi(ry) = 0$, hence 
+    $ry \in \sqrt{I}/I$. Since $\sqrt{I}/I$ is nilpotent, there exists $n$ such that 
+    $(ry)^n = r^n y^n = 0$. But $y^n \neq 0$ (otherwise $y$ would be nilpotent, 
+    then $\bar{x} = \pi(y)$ would be nilpotent, but $\mathfrak{p}$ is prime and 
+    contains $\operatorname{Ann}_R(\bar{x})$, so $\bar{x}$ cannot be nilpotent 
+    unless $\bar{x}=0$). Thus $r^n \in \operatorname{Ann}_R(y^n) \subseteq \mathfrak{p}$ 
+    (again because $\mathfrak{p}$ is prime and contains $\operatorname{Ann}_R(\bar{x})$ 
+    which is contained in $\operatorname{Ann}_R(y^n)$), so $r \in \mathfrak{p}$. 
+    This shows $\operatorname{Ann}_R(y) \subseteq \mathfrak{p}$.
+
+    Conversely, if $r \in \operatorname{Ann}_R(y)$, then $ry=0$, so $r\bar{x}=0$, 
+    hence $r \in \operatorname{Ann}_R(\bar{x}) = \mathfrak{p}$. Therefore 
+    $\mathfrak{p} = \operatorname{Ann}_R(y)$, and so $\mathfrak{p} \in \operatorname{Ass}_R(R/I)$.//
+
+
+    Combining both steps, we conclude $\operatorname{Ass}_R(R/I) = \operatorname{Ass}_R(R/\sqrt{I})$.
+\end{proof}
+
+\begin{example}
+    Consider $R = \mathbb{Z}$ and $I = (12)$. Then $\sqrt{I} = (6)$, since $6^2 = 36 \in I$ and any element whose power is divisible by 12 must be divisible by 6. Note that $\mathbb{Z}/(12)$ and $\mathbb{Z}/(6)$ have different module structures, but their reduced rings (modulo nilpotents) are isomorphic. The nilradical of $\mathbb{Z}/(12)$ is $(6)/(12)$, which is nilpotent of index 2.
+\end{example}
+
+\begin{example}
+    Let $R = k[x,y]/(x^2, xy)$ where $k$ is a field. The ideal $I = (x)$ satisfies $I^2 = 0$, so $\sqrt{I} = I$. However, $I$ is not prime since $y \cdot y = y^2 \notin I$ but $y \notin I$. This shows that radical ideals need not be prime.
+\end{example}
 \subsection{Localization}
 
 \subsection{Nakayama's Lemma}
