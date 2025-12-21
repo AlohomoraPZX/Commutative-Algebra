@@ -9,4 +9,4 @@ The goal of this seminar is to equip the necessary knowledge of commutative alge
 | Lecture No. | Host | Contents | Status |
 | :----: | :----: | :----: | :----: |
 | 1 | RitLemon | Ch1. Homological Algebra  Review | Under Construction |
-| 1 | shura-y | Ch1. ring theory-radical of ideals | Under Construction |
+| 2 | shura-y | Ch1. ring theory-radical of ideals | Under Construction |
