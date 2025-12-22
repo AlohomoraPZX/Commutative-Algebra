@@ -319,4 +319,113 @@ exact. Now we tensor the sequence with $\mathbb{Z}/4\mathbb{Z}$, which cannot be
 \begin{definition}
 	Let $R$ be a ring. An $R$-module $M$ is called \textbf{flat} if functor $(-)\otimes_R M$ is exact.
 \end{definition}
+
+Now let us recall the definition of colimits we learned in category theory, but this time in $R\text{-}\mathsf{Mod}$ category.
+
+Suppose we have a direct system $\mathscr{I} = (A_i, \mu_{ij})$ and an another module $M$ with morphisms $f_i : A_i \to M$ coherent with the system. By the universal property of colimits, there exists some $g : \varinjlim A_i \to M$ with $g_i : A_i \to \varinjlim A_i$ which commutes the cone. Now let us ingore the morphisms $\mu_{ij}$. By the universal property of coproducts, there exists some $f : \bigoplus_{i\in I} A_i \to M$ with $\iota_{i} : A_i \to \bigoplus_{i\in I} A_i$, which commutes the following diagram:
+\[\begin{tikzcd}[column sep=scriptsize]
+	&& M \\
+	{\varinjlim A_i} &&&& {\bigoplus_{i\in I} A_i} \\
+	\\
+	& {A_i} && {A_j}
+	\arrow["g", from=2-1, to=1-3]
+	\arrow["f"', from=2-5, to=1-3]
+	\arrow["u"{description}, from=2-5, to=2-1]
+	\arrow["{f_i}"{description}, from=4-2, to=1-3]
+	\arrow["{g_i}"{description}, from=4-2, to=2-1]
+	\arrow["{\iota_i}"{description}, from=4-2, to=2-5]
+	\arrow["{\mu_{ij}}", from=4-2, to=4-4]
+	\arrow["{f_j}"{description}, from=4-4, to=1-3]
+	\arrow["{g_j}"{description}, from=4-4, to=2-1]
+	\arrow["{\iota_j}"{description}, from=4-4, to=2-5]
+\end{tikzcd}\]
+Since $g \circ u \circ \iota_i = g \circ g_i = f_i$ for any $A_i \in \mathscr{I}$, we obtain $f = g \circ u$. It shows us a fact: \textit{any morphisms $f : \bigoplus_{i\in I} A_i \to M$ coherent with the system must factor through $\varinjlim A_i$}. Hence, it is natural to construct $\varinjlim A_i$ as some quotient of $\bigoplus_{i\in I} A_i$.
+\begin{proposition}
+	Let $(A_i, \mu_{ij})$ be a direct system, $N$ be the module defined as $N = \left<\HIm(\iota_i - \iota_j\circ \mu_{ij})\right>$. Then the module $\bigoplus_{i\in I} A_i \big/ N$ satisfies the universal property of the colimit.
+\end{proposition}
+\begin{proof}
+	Since $f_i = f_j \circ \mu_{ij}$ for any $\mu_{ij} : A_i \to A_j$, we have $f \circ \iota_i = f \circ \iota_j \circ \mu_{ij}$, which implies that $f \circ (\iota_{i} - \iota_j \circ \mu_{ij}) = 0$. Hence, $f(N) \equiv 0$. By the universal property of the quotient, there exists a unique $g : \bigoplus_{i\in I} A_i \big/ N \to M$ which commutes the diagram above. 
+
+	Let $u$ be the cannonical quotient morphism, then it is trivial to verify that $g_i = u \circ \iota_i$ satisfies the coherent conditions. Those are exactly the universal property of the colimit. 
+\end{proof}
+
+Now suppose we have two direct systems $(A_i, \varphi_{ij})$ and $(B_i, \psi_{ij})$. Let $\tau_i : A_i \to B_i$ be a family of morphisms compatible with the system, i.e. the following diagram:
+\[\begin{tikzcd}[column sep=scriptsize]
+	{A_i} && {B_i} \\
+	\\
+	{A_j} && {B_j}
+	\arrow["{\tau_i}", from=1-1, to=1-3]
+	\arrow["{\varphi_{ij}}", from=1-1, to=3-1]
+	\arrow["{\psi_{ij}}"', from=1-3, to=3-3]
+	\arrow["{\tau_j}", from=3-1, to=3-3]
+\end{tikzcd}\]
+commutes for each $\varphi_{ij} : A_i \to A_j$. (You can recognize $\tau_i$ as a funtor in category $\mathscr{A}^{\mathscr{I}}$.) Assume that the two systems both admit their colimits, then naturally it induces a morphism $\varinjlim \tau_i : \varinjlim A_i \to \varinjlim B_i$ via the following commutative diagram:
+\[\begin{tikzcd}[column sep=scriptsize]
+	{\varinjlim A_i} &&&& {\varinjlim B_i} \\
+	& {A_i} && {B_i} \\
+	\\
+	& {A_j} && {B_j}
+	\arrow["{\varinjlim \tau_i}", from=1-1, to=1-5]
+	\arrow["{\iota_i}"', from=2-2, to=1-1]
+	\arrow["{\tau_i}", from=2-2, to=2-4]
+	\arrow["{\varphi_{ij}}", from=2-2, to=4-2]
+	\arrow["{\gamma_i}", from=2-4, to=1-5]
+	\arrow["{\psi_{ij}}"', from=2-4, to=4-4]
+	\arrow["{\iota_j}"', from=4-2, to=1-1]
+	\arrow["{\tau_j}", from=4-2, to=4-4]
+	\arrow["{\gamma_j}", from=4-4, to=1-5]
+\end{tikzcd}\]
+
+A natural question is: suppose there are some exact sequences $A_i \xrightarrow{f_i} B_i \xrightarrow{g_i} C_i$, both compatible with the system, then is the sequence $$\varinjlim A_i \xrightarrow{\varinjlim f_i} \varinjlim B_i \xrightarrow{\varinjlim g_i} \varinjlim C_i$$ exact? It is not true in general. However, under some special direct systems, the colimit does preserve exactness.
+
+\begin{proposition}
+	Direct sums in $R\text{-}\mathsf{Mod}$ category preserves exactness.
+\end{proposition}
+\begin{proof}
+	Suppose we have the exact sequences $A_i \xrightarrow{f_i} B_i \xrightarrow{g_i} C_i$. Notice that in $R\text{-}\mathsf{Mod}$ category we have $$\Ker\left(\bigoplus_{i\in I} f_i\right) = \bigoplus_{i\in I}\Ker f_i, \qquad \HIm\left(\bigoplus_{i\in I} f_i\right) = \bigoplus_{i\in I}\HIm f_i,$$
+	which completes the proof by the exactness of the original sequences.
+\end{proof}
+\begin{corollary}
+	Direct sum of flat modules is still flat.
+\end{corollary}
+\begin{proof}
+	Consider the following commutative diagram:
+	\[\begin{tikzcd}[column sep=scriptsize]
+	0 & {M\otimes(\bigoplus_{i\in I}A_i)} & {N\otimes(\bigoplus_{i\in I}A_i)} & {Q\otimes(\bigoplus_{i\in I}A_i)} & 0 \\
+	0 & {\bigoplus_{i\in I} M\otimes A_i} & {\bigoplus_{i\in I} N\otimes A_i} & {\bigoplus_{i\in I} Q\otimes A_i} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["f", from=1-2, to=1-3]
+	\arrow["\cong", hook, two heads, from=1-2, to=2-2]
+	\arrow["g", from=1-3, to=1-4]
+	\arrow["\cong", hook, two heads, from=1-3, to=2-3]
+	\arrow[from=1-4, to=1-5]
+	\arrow["\cong"', hook, two heads, from=1-4, to=2-4]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+The lower sequence is exact since each $0 \rightarrow M\otimes A_i \rightarrow N\otimes A_i \rightarrow Q \otimes A_i \rightarrow 0$ is exact by the flatness. Hence, the upper one is also exact.
+\end{proof}
+
+Similarly, it is trivial to see that $\bigoplus_{i \in I} A_i \to \bigoplus_{i \in I} B_i \to \bigoplus_{i \in I} C_i$ is exact if and only if each $A_i \to B_i \to C_i$ is exact. Hence we obtain:
+\begin{corollary}
+	Direct summands of flat modules are still flat.
+\end{corollary}
+The corollary in fact shows an important result:
+\begin{theorem}
+	Projective modules are flat.
+\end{theorem}
+\begin{proof}
+	It is suffices to show $R$ itself as $R$-module is flat, which is obvious since $M\otimes_R R \cong M$ for any $R$-module $M$. Hence, free modules, being some direct sums of $R$, are flat. Each projective module is a direct summand of some free module, which implies the flatness.
+\end{proof}
+But not every flat module is projective.
+\begin{example}
+	$\mathbb{Q}$ as $\mathbb{Z}$-module is flat, but not projective.
+\end{example}
+\begin{proof}
+	To show the flatness, we only need to verify that it preserves injectivity. Suppose $f : M \to N$ be a monomorphism between $M$, $N$, two $\mathbb{Z}$-modules. Let $v \in \ker(f\otimes 1) \subset M \otimes \mathbb{Q}$. There are some $m_i \in M$ and $q_i \in \mathbb{Q}$ such that $v = \sum_{i=1}^k q_i m_i$. Multipy $v$ with some $l \in \mathbb{Z}$ such that each coefficient of $m_i$ is in $\mathbb{Z}$, we have $lv \in M$ such that $f(lv) = 0 \Rightarrow lv = 0$. Since $l\neq 0$, we obtain $v = 0$.
+
+	For projectivity, $\mathbb{Z}$ is a PID, hence projective modules are equivalent with free modules. But $\mathbb{Q}$ is not free over $\mathbb{Z}$, as any two $q_1, q_2\in \mathbb{Q}$ is linear dependent.
+\end{proof}
 \subsection{Derived Functors}
